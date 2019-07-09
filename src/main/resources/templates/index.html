@@ -1,12 +1,199 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Page Title</title>
+  <title>Scanner Management</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <link href='https://fonts.googleapis.com/css?family=Chewy' rel='stylesheet'>
 </head>
+
+<script>
+
+	$( document ).ready(function() {
+	  $("#user").focus();
+	  $('#guideTxt').text("Please Scan ID-Badge To Begin")
+	  
+	    $("#user").focusout(function(){
+			if($(this).val().trim() == "" || $(this).val().trim() == null) {
+				$("#user").focus();
+			}
+			else {
+				$( "#user" ).prop( "disabled", true );
+				$('#guideTxt').text("Please Scan Barcode on Scanner")
+			}
+		});
+	  
+	  
+
+	  
+	  
+		//clear scanner Id if user is empty
+		  $("#user").keyup(function(){
+			if($(this).val().trim() == "" || $(this).val().trim() == null) {
+				$("#scanner").val("")
+			}
+		});
+	  
+		$("#scanner").focusout(function(){
+			if($(this).val().trim() == "" || $(this).val().trim() == null) {
+			 $(this).focus()
+			}else {
+				$( "#scanner" ).prop( "disabled", true );
+				$('#guideTxt').text(scan())
+				setTimeout(function(){ reset()}, 1700);			
+			}
+		});
+		
+		
+		
+		function scan() {			
+			if (Math.random() >= 0.5) 
+				return "Scanner Returned"
+			else 
+				return "Scanner Checked Out"	
+		}
+		
+	
+	
+function reset() {
+			$('#guideTxt').text("Please Scan ID-Badge To Begin")		
+			$("#user").val("")		
+			$("#scanner").val("")	
+			$( "#scanner" ).prop( "disabled", false );
+			$( "#user" ).prop( "disabled", false );
+}
+	
+	
+	
+//prevent tabbing on scanner input	
+$('#scanner').on('keydown', function(e)
+{ 
+  if (e.keyCode == 9 && $(this).val().trim() == "")  
+  {
+    e.preventDefault();
+  }
+});	
+		
+	  
+	});
+</script>
+
+<style>
+	body {
+    font-family: 'Chewy';font-size: 22px;
+	background-color: #bff4fc;
+}
+
+	.app {
+		padding-top: 200px;
+	}
+
+	label {
+		font-weight: bold;
+	}
+
+	p.guide {
+		font-size: 1.8em;
+		margin-bottom: 60px;
+	}
+
+	.inputArea {
+		padding-left: 20px;
+		padding-right: 20px;
+	}
+
+	.ID {
+		width: 40%;
+		font-size: 1em;
+		-webkit-transition: all .3s;
+	}
+
+	.ID:focus {
+		width: 80%;
+		font-size: 1.8em;
+	}
+	
+	.submit {
+		margin-top: 170px;
+	}
+
+	.button {
+  border-radius: 85px;
+  background-color: green;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 28px;
+  padding: 20px;
+  width: 200px;
+  transition: all 0.5s;
+  cursor: pointer;
+		margin: auto;
+}
+
+.button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.button span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.button:hover span {
+  padding-right: 25px;
+}
+
+.button:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
+</style>
+
+
 <body>
 
-<h1>This is a Heading</h1>
-<p>This is a paragraph.</p>
+<div class="container app">
+	
+	<div class="row">
+	<div class="col-sm-12 text-center">
+				<p id="guideTxt" class="guide"></p>
+	</div>
+</div>
+
+
+  <div class="row">
+    <div class="col-sm-6 text-center inputArea">
+	<div class="form-group">
+    <label for="email">User:</label><br/>
+       <input class="ID" id="user" type="text" name="firstname">
+	   </div>
+    </div>
+    <div class="col-sm-6 text-center inputArea">
+      	<div class="form-group">
+    <label for="email">Scanner:</label><br/>
+       <input class="ID" id="scanner" type="text" name="firstname">
+	   </div>
+    </div>
+</div>
+
+<div class="row submit">
+<button class="button"><span>Submit </span></button>
+
+	  </div>
+
 
 </body>
 </html>
