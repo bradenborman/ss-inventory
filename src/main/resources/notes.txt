@@ -1,0 +1,1 @@
+javaw -jar war will make it run in background
