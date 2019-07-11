@@ -9,223 +9,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <link href='https://fonts.googleapis.com/css?family=Chewy' rel='stylesheet'>
+    <link rel="stylesheet" type="text/css" href="/css/style.css"/>
 </head>
-<script>
-      $( document ).ready(function() {
-        $("#user").focus();
-        $('#guideTxt').text("Please Scan ID-Badge To Begin")
-
-          $("#user").focusout(function(){
-      if($(this).val().trim() == "" || $(this).val().trim() == null) {
-      $("#user").focus();
-      }
-      else {
-      $( "#user" ).prop( "disabled", true );
-      $("#scanner").focus();
-      $('#guideTxt').text("Please Scan Barcode on Scanner")
-      }
-      });
-
-
-      //clear scanner Id if user is empty
-       $("#user").keyup(function(){
-      if($(this).val().trim() == "" || $(this).val().trim() == null) {
-      $("#scanner").val("")
-      }
-      });
-
-      $("#scanner").focusout(function(){
-      if($(this).val().trim() == "" || $(this).val().trim() == null) {
-      $(this).focus()
-      }else {
-      $( "#scanner" ).prop( "disabled", true );
-      $('#guideTxt').text("Press submit to complete")
-      }
-      });
-
-
-
-      function reset() {
-      $('#guideTxt').text("Please Scan ID-Badge To Begin")
-      $("#user").val("")
-      $("#scanner").val("")
-      $( "#scanner" ).prop( "disabled", false );
-      $( "#user" ).prop( "disabled", false );
-      }
-
-
-
-      //prevent tabbing on scanner input
-      $('#scanner').on('keydown', function(e)
-      {
-       if (e.keyCode == 9 && $(this).val().trim() == "")
-       {
-         e.preventDefault();
-       }
-      });
-
-        $(".reset").click(function(){
-document.getElementById("form").reset();
-$( "#user" ).prop( "disabled", false );
-$( "#scanner" ).prop( "disabled", false );
-$("#user").focus();
-      });
-
-      });
-
-
-function validateForm() {
-
-var user = $("#user").val().trim()
-var scanner = $( "#scanner" ).val().trim()
-
-if(user.length > 2 && scanner.length > 1) {
-
-    $( "#user" ).prop( "disabled", false );
-    $( "#scanner" ).prop( "disabled", false );
-    return true;
- }else {
-    return false;
- }
-
-
-}
-
-
-   </script>
-<style>
-      body {
-      font-family: 'Chewy';font-size: 22px;
-      background-color: #bff4fc;
-      }
-      .app {
-      padding-top: 110px;
-      }
-      label {
-      font-weight: bold;
-      }
-      p.guide {
-      font-size: 1.8em;
-      margin-bottom: 60px;
-      }
-      .inputArea {
-      padding-left: 20px;
-      padding-right: 20px;
-      }
-      .ID {
-      text-align: center;
-      width: 40%;
-      padding: 10px;
-      font-size: 1em;
-      -webkit-transition: all .3s;
-      }
-      .ID:focus {
-      width: 80%;
-      font-size: 1.8em;
-      }
-      .submit {
-      margin-top: 170px;
-      }
-      .button {
-      border-radius: 85px;
-      background-color: green;
-      border: none;
-      color: #FFFFFF;
-      text-align: center;
-      font-size: 28px;
-      padding: 20px;
-      width: 200px;
-      transition: all 0.5s;
-      cursor: pointer;
-      margin: auto;
-      }
-      .button span {
-      cursor: pointer;
-      display: inline-block;
-      position: relative;
-      transition: 0.5s;
-      }
-      .button span:after {
-      content: '\00bb';
-      position: absolute;
-      opacity: 0;
-      top: 0;
-      right: -20px;
-      transition: 0.5s;
-      }
-      .button:hover span {
-      padding-right: 25px;
-      }
-      .button:hover span:after {
-      opacity: 1;
-      right: 0;
-      }
-      #reset {
-      background-color: #f35858;
-      }
-
-
-:root{
---main-color:#fff;
---button-color: #e0fbf9;
-}
-
-#modal-button{
-display: none;
-}
-
-#modal-button:checked ~ .modal{
-transform:translateY(0);
-}
-
-.modal-button{
-font-family: 'Roboto' , 'sans-serif';
-background:var(--button-color);
-color: #0b1e1d;
-display: inline-block;
-padding:15px 20px;
-margin:20px;
-cursor:pointer;
-border: 2px solid black;
-}
-
-.modal-button-close{
-position:absolute;
-right:0;
-top:0;
-}
-
-.modal{
-display:flex;
-justify-content:center;
-align-items:center;
-background:rgba(0,0,0,.5);
-height:100vh;
-width:100%;
-position:fixed;
-top:0;
-left:0;
-z-index:1000;
-
-transform:translateY(-150%) rotate(180deg) scale(0);
-transition:.8s ease;
-}
-
-.modal-inner{
-background:var(--main-color);
-width:90%;
-height:90%;
-padding: 50px;
-position:relative;
-}
-
-
-   </style>
 <body>
-
 <label for="modal-button" class="modal-button">View Checked Out Scanners</label>
 <input type="checkbox" id="modal-button">
-
 <div class="modal">
     <div class="modal-inner">
         <label for="modal-button" class="modal-button modal-button-close">Close View</label>
@@ -255,12 +43,12 @@ position:relative;
             <p id="guideTxt" class="guide"></p>
         </div>
     </div>
-    <form id="form" onsubmit="return validateForm()" action="/scan" method="post" >
+    <form autocomplete="off" id="form" action="/scan" method="post" >
         <div class="row">
             <div class="col-sm-6 text-center inputArea">
                 <div class="form-group">
                     <label for="user">User:</label><br/>
-                    <input class="ID" id="user" type="text" name="userID">
+                    <input autofocus="autofocus" class="ID" id="user" type="text" name="userID">
                 </div>
             </div>
             <div class="col-sm-6 text-center inputArea">
@@ -270,13 +58,10 @@ position:relative;
                 </div>
             </div>
         </div>
-        <div class="row submit">
-            <button class="button" value="Submit"><span>Submit </span></button>
-        </div>
-        <br />
-        <div class="row">
-            <div class="button reset" id="reset"><span>Reset </span></div>
-        </div>
     </form>
+</div>
+
+<script src="javascript/script.js"></script>
+
 </body>
 </html>

@@ -4,6 +4,7 @@ import com.softsurroundings.soft.surroundings.services.InventoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,7 +26,13 @@ public class ViewController {
     public String add(@RequestParam("userID") String userID, @RequestParam("scannerID") String scannerID) {
         inventoryService.scan(userID, scannerID);
         return "redirect:/";
-
     }
+
+
+//    @GetMapping("/refresh")
+//    public String refresh() {
+//        return "redirect:/";
+//    }
+
 
 }
