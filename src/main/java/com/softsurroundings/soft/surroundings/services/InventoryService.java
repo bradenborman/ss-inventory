@@ -23,6 +23,12 @@ public class InventoryService {
         return getContents();
     }
 
+    public List<CheckedOut> getCheckouts() {
+        List<CheckedOut> all = getContents();
+        CheckoutManager.clearReturnedEntries(all);
+        return all;
+    }
+
 
     public List<CheckedOut> getContents() {
         ObjectMapper objectMapper = new ObjectMapper();
