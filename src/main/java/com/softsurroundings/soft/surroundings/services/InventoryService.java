@@ -3,7 +3,6 @@ package com.softsurroundings.soft.surroundings.services;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.softsurroundings.soft.surroundings.debug.Debug;
 import com.softsurroundings.soft.surroundings.models.CheckedOut;
 import org.springframework.stereotype.Component;
 
@@ -32,7 +31,7 @@ public class InventoryService {
 
     public List<CheckedOut> getContents() {
         ObjectMapper objectMapper = new ObjectMapper();
-        File file = new File("C:\\Users\\brade\\Desktop\\dev\\2019\\Adams_project\\soft surroundings\\soft-surroundings\\data\\checked-out.json");
+        File file = DirectoryManager.createIfNecessary();
 
         try {
             return objectMapper.readValue(file, new TypeReference<List<CheckedOut>>() {});
@@ -44,7 +43,7 @@ public class InventoryService {
     public void updateFile(List<CheckedOut> newCheckedOut) {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
-            objectMapper.writeValue(new FileWriter("C:\\Users\\brade\\Desktop\\dev\\2019\\Adams_project\\soft surroundings\\soft-surroundings\\data\\checked-out.json"), newCheckedOut);
+            objectMapper.writeValue(new FileWriter(DirectoryManager.createIfNecessary()), newCheckedOut);
         } catch (IOException e) {
             e.printStackTrace();
         }

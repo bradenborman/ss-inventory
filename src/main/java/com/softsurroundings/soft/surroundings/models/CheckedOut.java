@@ -62,4 +62,11 @@ public class CheckedOut {
     public void setLastScanString(String lastScanString) {
         this.lastScanString = lastScanString;
     }
+
+
+    @Override
+    public String toString() {
+        return String.format("USER_ID: %s | SCANNER #: %s | TIME: %s ", userId, scannerId, lastScanString);
+
+    }
 }
