@@ -2,11 +2,12 @@ package com.softsurroundings.soft.surroundings.services;
 
 import com.softsurroundings.soft.surroundings.models.CheckedOut;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
-
+import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,35 +16,61 @@ import java.util.stream.Collectors;
 public class EmailService {
 
     @Autowired
-    private JavaMailSender javaMailSender;
+    private JavaMailSenderImpl javaMailSender;
 
 
 
     public void sendEmail(List<CheckedOut> onlyCheckedOut) {
 
-        String result = onlyCheckedOut.stream()
-                .map(CheckedOut::toString)
-                .collect( Collectors.joining( "\n" ) );
+               ///Acbeamer@softsurroundings.com
 
-        SimpleMailMessage msg = new SimpleMailMessage();
-        msg.setTo("Acbeamer@softsurroundings.com");
+        MimeMessage message = javaMailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message);
 
-        msg.setSubject("Scanners still checked out");
-        msg.setText(buildEmailBody(onlyCheckedOut));
+        try {
+            System.out.println("sending to Acbeamer@softsurroundings.com");
+            helper.setTo("Acbeamer@softsurroundings.com");
+            helper.setSubject("Scanner Report");
+            helper.setText(buildEmailBody(onlyCheckedOut), true);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
 
-        javaMailSender.send(msg);
+        javaMailSender.send(message);
 
     }
 
+
     private String buildEmailBody(List<CheckedOut> onlyCheckedOut) {
+        String x = "USERS WITH CHECKED OUT SCANNERS <br>";
+        String tablePlusHeaders = "<table style='min-width: 500px;'>" +
+                "<tr><th>USER ID</th><th>SCANNER ID</th><th>TIME OF SCAN</th></tr>";
+        String rows = onlyCheckedOut.stream()
+                .map(CheckedOut::toTableRow)
+                .collect(Collectors.joining());
+        String tableEnding = "</table>";
+        return  getStyle().concat(x).concat(tablePlusHeaders).concat(rows).concat(tableEnding);
+    }
 
-        String x = "NOTES FOR ADAM: you might have to set up an email account for this. Stilling looking but obv dont have like a server that I can just use. " +
-                "Able to user a GMAIL account though. This was run automatically early this morning. \n\n\n USERS WITH CHECKED OUT SCANNERS \n\n";
 
-        return x + onlyCheckedOut.stream()
-                .map(CheckedOut::toString)
-                .collect( Collectors.joining( "\n" ) );
-
+    private String getStyle() {
+        return "<style>\n" +
+                "table {\n" +
+                "  font-family: arial, sans-serif;\n" +
+                "  border-collapse: collapse;\n" +
+                "  width: 100%;\n" +
+                "}\n" +
+                "\n" +
+                "td, th {\n" +
+                "  border: 1px solid #dddddd;\n" +
+                "  text-align: left;\n" +
+                "  padding: 8px;\n" +
+                "}\n" +
+                "\n" +
+                "tr:nth-child(even) {\n" +
+                "  background-color: #dddddd;\n" +
+                "}\n" +
+                "</style>";
     }
 
 }

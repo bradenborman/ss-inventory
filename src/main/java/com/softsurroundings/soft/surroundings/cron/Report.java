@@ -14,26 +14,19 @@ import java.util.List;
 public class Report {
 
     @Autowired
-    InventoryService inventoryService;
+    private InventoryService inventoryService;
 
     @Autowired
-    EmailService emailService;
+    private EmailService emailService;
 
 
-    @Scheduled(cron = "0 30 04 * * ?") //Every day at 4:30am
+    //@Scheduled(cron = "0/14 * * * * ?")
+    @Scheduled(cron = "0 55 14 * * ?") //Every day at 2:55pm
     public void updateNextTeamPlayingAndOddsQuick() {
         List<CheckedOut> onlyCheckedOut = CheckoutManager.clearReturnedEntries(inventoryService.getContents());
         System.out.println("Sending report and clearing returned guns");
         inventoryService.updateFile(onlyCheckedOut);
         emailService.sendEmail(onlyCheckedOut);
     }
-
-
-//    @Scheduled(cron = "0 0 8 * * ?") //Every day at 8am
-//    public void updateNextTeamPlayingAndOdds() {
-//        logger.info("Scheduled task hit: updateTeamsPlayingToday.");
-//        sportsDataApiService.updateTeamsPlayingToday();
-//    }
-
 
 }

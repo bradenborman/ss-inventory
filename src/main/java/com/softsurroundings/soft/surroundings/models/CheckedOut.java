@@ -64,9 +64,8 @@ public class CheckedOut {
     }
 
 
-    @Override
-    public String toString() {
-        return String.format("USER_ID: %s | SCANNER #: %s | TIME: %s ", userId, scannerId, lastScanString);
+    public String toTableRow() {
+        return String.format("<tr><th>%s</th><th>%s</th><th>%s</th></tr>", userId, scannerId, lastScanString);
 
     }
 }
