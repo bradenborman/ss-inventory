@@ -21,7 +21,7 @@ public class Report {
 
 
     //@Scheduled(cron = "0/14 * * * * ?")
-    @Scheduled(cron = "0 55 14 * * ?") //Every day at 2:55pm
+    @Scheduled(cron = "0 30 4 * * ?") //Every day at 4:30am
     public void updateNextTeamPlayingAndOddsQuick() {
         List<CheckedOut> onlyCheckedOut = CheckoutManager.clearReturnedEntries(inventoryService.getContents());
         System.out.println("Sending report and clearing returned guns");

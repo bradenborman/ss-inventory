@@ -19,17 +19,18 @@ public class EmailService {
     private JavaMailSenderImpl javaMailSender;
 
 
+    private static final String receivingAddress = "bradenborman@hotmail.com";
+    //private static final String receivingAddress = "Acbeamer@softsurroundings.com";
+
 
     public void sendEmail(List<CheckedOut> onlyCheckedOut) {
-
-               ///Acbeamer@softsurroundings.com
 
         MimeMessage message = javaMailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
 
         try {
-            System.out.println("sending to Acbeamer@softsurroundings.com");
-            helper.setTo("Acbeamer@softsurroundings.com");
+            System.out.println(receivingAddress);
+            helper.setTo(receivingAddress);
             helper.setSubject("Scanner Report");
             helper.setText(buildEmailBody(onlyCheckedOut), true);
         } catch (MessagingException e) {
@@ -42,7 +43,7 @@ public class EmailService {
 
 
     private String buildEmailBody(List<CheckedOut> onlyCheckedOut) {
-        String x = "USERS WITH CHECKED OUT SCANNERS <br>";
+        String x = "<h3>CHECKED OUT SCANNERS</h3>";
         String tablePlusHeaders = "<table style='min-width: 500px;'>" +
                 "<tr><th>USER ID</th><th>SCANNER ID</th><th>TIME OF SCAN</th></tr>";
         String rows = onlyCheckedOut.stream()

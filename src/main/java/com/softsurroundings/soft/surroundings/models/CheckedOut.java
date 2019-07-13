@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -65,7 +66,10 @@ public class CheckedOut {
 
 
     public String toTableRow() {
-        return String.format("<tr><th>%s</th><th>%s</th><th>%s</th></tr>", userId, scannerId, lastScanString);
 
+        LocalDate today = LocalDate.now().minusDays(1);
+
+        return lastTimeScanned.isAfter(today.atStartOfDay()) ? String.format("<tr><th>%s</th><th>%s</th><th>%s</th></tr>", userId, scannerId, lastScanString)
+                : String.format("<tr><th>%s</th><th>%s</th><th style='color: red;'>%s</th></tr>", userId, scannerId, lastScanString);
     }
 }

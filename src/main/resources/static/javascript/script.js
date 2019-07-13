@@ -62,7 +62,6 @@ $(document).ready(function () {
 
 	    if(validateForm()) {
 		    document.forms["form"].submit();
-//		    jQuery.event.trigger({ type: 'keydown', which: 116 });
 		}
 		else
 		   reset()
