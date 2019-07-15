@@ -4,6 +4,8 @@ import com.softsurroundings.soft.surroundings.models.CheckedOut;
 import com.softsurroundings.soft.surroundings.services.CheckoutManager;
 import com.softsurroundings.soft.surroundings.services.EmailService;
 import com.softsurroundings.soft.surroundings.services.InventoryService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -12,6 +14,8 @@ import java.util.List;
 
 @Component
 public class Report {
+
+    private static final Logger logger = LoggerFactory.getLogger(Report.class);
 
     @Autowired
     private InventoryService inventoryService;
@@ -27,6 +31,12 @@ public class Report {
         System.out.println("Sending report and clearing returned guns");
         inventoryService.updateFile(onlyCheckedOut);
         emailService.sendEmail(onlyCheckedOut);
+    }
+
+
+    @Scheduled(cron = "0 0/1 0/1 ? * *") //every hour starting at 00am, of every day
+    public void logData() {
+        logger.info(String.format("Application up and running. %s scanners are checked out." , inventoryService.getCheckouts().size()));
     }
 
 }
