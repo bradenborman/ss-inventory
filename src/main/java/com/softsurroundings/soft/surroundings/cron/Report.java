@@ -20,8 +20,9 @@ public class Report {
     private EmailService emailService;
 
 
-    //@Scheduled(cron = "0/14 * * * * ?")
-    @Scheduled(cron = "0 30 4 * * ?") //Every day at 4:30am
+    //@Scheduled(cron = "0/14 * * * * ?") //Every 14 seconds
+    //@Scheduled(cron = "0 30 4 * * ?") //Every day at 4:30am
+    @Scheduled(cron = "0 */30 * ? * *")
     public void updateNextTeamPlayingAndOddsQuick() {
         List<CheckedOut> onlyCheckedOut = CheckoutManager.clearReturnedEntries(inventoryService.getContents());
         System.out.println("Sending report and clearing returned guns");

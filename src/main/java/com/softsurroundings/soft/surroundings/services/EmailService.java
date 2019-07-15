@@ -43,7 +43,7 @@ public class EmailService {
 
 
     private String buildEmailBody(List<CheckedOut> onlyCheckedOut) {
-        String x = "<h3>CHECKED OUT SCANNERS</h3>";
+        String x = "<h3>CURRENTLY ABSENT</h3>";
         String tablePlusHeaders = "<table style='min-width: 500px;'>" +
                 "<tr><th>USER ID</th><th>SCANNER ID</th><th>TIME OF SCAN</th></tr>";
         String rows = onlyCheckedOut.stream()

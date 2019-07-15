@@ -1,1 +1,7 @@
 javaw -jar war will make it run in background
+
+
+cant tab out to submit -- will cause it to load in with actual internet explorer tab focused instead of TXTbox
+
+
+/home/pi/Documents/scanner-data/scanner-data.json

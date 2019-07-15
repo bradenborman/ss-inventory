@@ -5,10 +5,9 @@ import java.io.*;
 class DirectoryManager {
 
 
-    private final static String _PATH_TO_DATA = "C:/scanner-data/";
+    private final static String _PATH_TO_DATA = "/home/pi/Documents/scanner-data/";
 
-    private final static String _NAME_OF_DATA_FILE = "checked-out.json";
-
+    private final static String _NAME_OF_DATA_FILE = "scanner-data.json";
 
     static File createIfNecessary() {
 

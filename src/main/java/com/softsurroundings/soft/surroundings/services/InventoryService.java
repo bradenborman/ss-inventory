@@ -12,10 +12,13 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 
 @Component
 public class InventoryService {
+
+    static Logger log = Logger.getLogger(InventoryService.class.getName());
 
 
     public List<CheckedOut> readFile() {
@@ -52,6 +55,9 @@ public class InventoryService {
 
 
     public CheckedOut scan(String userId, String scannerId) {
+
+        log.info(String.format("New Scan: %s | %s", userId, scannerId));
+
         List<CheckedOut> currentData = getContents();
         CheckedOut newlyScanned = getNewCheckedOut(userId, scannerId, currentData);
 
