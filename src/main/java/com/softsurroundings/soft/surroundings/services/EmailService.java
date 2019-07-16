@@ -19,8 +19,8 @@ public class EmailService {
     private JavaMailSenderImpl javaMailSender;
 
 
-    private static final String receivingAddress = "bradenborman@hotmail.com";
-    //private static final String receivingAddress = "Acbeamer@softsurroundings.com";
+    //private static final String receivingAddress = "bradenborman@hotmail.com";
+    private static final String receivingAddress = "Acbeamer@softsurroundings.com";
 
 
     public void sendEmail(List<CheckedOut> onlyCheckedOut) {

@@ -54,7 +54,7 @@ public class CheckedOut {
 
     public String getLastScanString() {
         if(this.lastTimeScanned != null) {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm:ss");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm:ss a MM/dd/yyyy");
             return lastTimeScanned.format(formatter);
         }
         return lastScanString;

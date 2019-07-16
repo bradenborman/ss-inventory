@@ -29,10 +29,4 @@ public class ViewController {
     }
 
 
-//    @GetMapping("/refresh")
-//    public String refresh() {
-//        return "redirect:/";
-//    }
-
-
 }

@@ -9,7 +9,7 @@ $(document).ready(function () {
     		} else {
     			$("#user").prop("disabled", true);
     			$("#scanner").focus();
-    			$('#guideTxt').text("Please Scan Barcode on Scanner")
+    			$('#guideTxt').html("Please Scan Barcode on Scanner<br><small>Enter to clear</small>")
     		}
     });
 

@@ -6,6 +6,9 @@ plugins {
 
 apply plugin: 'io.spring.dependency-management'
 
+apply plugin: 'groovy'
+
+
 group = 'com.softsurroundings'
 version = '1.0.0-SNAPSHOT'
 sourceCompatibility = '1.8'
@@ -36,4 +39,14 @@ dependencies {
 
 	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	// https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
+	compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
+
+
+	testCompile(
+			'junit:junit:4.12',
+			'org.codehaus.groovy:groovy-all:2.4.11',
+			'org.spockframework:spock-core:1.1-groovy-2.4'
+	)
 }

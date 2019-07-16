@@ -54,7 +54,7 @@ public class InventoryService {
 
 
 
-    public CheckedOut scan(String userId, String scannerId) {
+    public void scan(String userId, String scannerId) {
 
         log.info(String.format("New Scan: %s | %s", userId, scannerId));
 
@@ -67,9 +67,7 @@ public class InventoryService {
        else
             CheckoutManager.returnScanner(currentData, newlyScanned);
 
-
         updateFile(currentData);
-        return newlyScanned;
     }
 
 
